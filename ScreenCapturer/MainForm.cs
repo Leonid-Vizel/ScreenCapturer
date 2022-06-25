@@ -11,9 +11,9 @@ namespace ScreenCapturer
         private Edits edits;
         public MainForm()
         {
-            edits = new Edits();
             screens = Screen.AllScreens;
             InitializeComponent();
+            edits = new Edits(workArea);
             heightUpDown.Maximum = widthUpDown.Maximum = int.MaxValue;
         }
 
@@ -24,7 +24,6 @@ namespace ScreenCapturer
             {
                 Thread.Sleep((int)delayUpDown.Value);
             }
-            edits = new Edits();
             workArea.Image?.Dispose();
             Bitmap capturedBitmap = ScreenCapturer.Capture(screens[displaySwitch.SelectedIndex]);
             workArea.Image = capturedBitmap;
@@ -50,7 +49,8 @@ namespace ScreenCapturer
 
         private void applyBtn_Click(object sender, EventArgs e)
         {
-            
+            edits.Size = new Size((int)widthUpDown.Value, (int)heightUpDown.Value);
+            edits.ApplyOverlay();
         }
     }
 }

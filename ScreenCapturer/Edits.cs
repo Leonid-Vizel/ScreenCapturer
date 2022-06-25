@@ -7,18 +7,20 @@ namespace ScreenCapturer
 {
     public class Edits
     {
+        private PictureBox source;
         public Size Size { get; set; }
         public List<TextOverlay> TextOverlays { get; set; }
         public List<BitmapOverlay> BitmapOverlays { get; set; }
 
-        public Edits()
+        public Edits(PictureBox source)
         {
+            this.source = source;
             Size = new Size();
             TextOverlays = new List<TextOverlay>();
             BitmapOverlays = new List<BitmapOverlay>();
         }
 
-        public void ApplyOverlay(PictureBox source)
+        public void ApplyOverlay()
         {
             Bitmap initial = source.Image as Bitmap;
             if (!initial.Size.Equals(Size))
